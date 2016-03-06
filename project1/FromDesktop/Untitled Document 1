@@ -1,0 +1,90 @@
+20:01:44.302375 execve("./test.sh", ["./test.sh"], [/* 61 vars */]) = 0 <0.000514>
+20:01:44.303406 brk(0)                  = 0x7f56095fd000 <0.000048>
+20:01:44.303621 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory) <0.000044>
+20:01:44.304401 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5607f15000 <0.000024>
+20:01:44.304508 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory) <0.000023>
+20:01:44.304613 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3 <0.000025>
+20:01:44.304708 fstat(3, {st_mode=S_IFREG|0644, st_size=121443, ...}) = 0 <0.000018>
+20:01:44.304796 mmap(NULL, 121443, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f5607ef7000 <0.000022>
+20:01:44.304873 close(3)                = 0 <0.000016>
+20:01:44.304942 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory) <0.000020>
+20:01:44.305034 open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3 <0.000025>
+20:01:44.305115 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\37\2\0\0\0\0\0"..., 832) = 832 <0.000018>
+20:01:44.305204 fstat(3, {st_mode=S_IFREG|0755, st_size=1845024, ...}) = 0 <0.000016>
+20:01:44.305286 mmap(NULL, 3953344, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f560792f000 <0.000060>
+20:01:44.305414 mprotect(0x7f5607aea000, 2097152, PROT_NONE) = 0 <0.000029>
+20:01:44.305503 mmap(0x7f5607cea000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bb000) = 0x7f5607cea000 <0.000030>
+20:01:44.305605 mmap(0x7f5607cf0000, 17088, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f5607cf0000 <0.000026>
+20:01:44.305736 close(3)                = 0 <0.000026>
+20:01:44.305897 mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5607ef6000 <0.000032>
+20:01:44.306029 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5607ef4000 <0.000031>
+20:01:44.306181 arch_prctl(ARCH_SET_FS, 0x7f5607ef4740) = 0 <0.000025>
+20:01:44.306442 mprotect(0x7f5607cea000, 16384, PROT_READ) = 0 <0.000038>
+20:01:44.306686 mprotect(0x7f5608135000, 8192, PROT_READ) = 0 <0.000036>
+20:01:44.306821 mprotect(0x7f5607f17000, 4096, PROT_READ) = 0 <0.000034>
+20:01:44.306933 munmap(0x7f5607ef7000, 121443) = 0 <0.000056>
+20:01:44.307134 getpid()                = 3589 <0.000028>
+20:01:44.307260 rt_sigaction(SIGCHLD, {0x7f5607f2c460, ~[RTMIN RT_1], SA_RESTORER, 0x7f5607965d40}, NULL, 8) = 0 <0.000026>
+20:01:44.307402 geteuid()               = 1000 <0.000026>
+20:01:44.307602 brk(0)                  = 0x7f56095fd000 <0.000027>
+20:01:44.307715 brk(0x7f560961e000)     = 0x7f560961e000 <0.000030>
+20:01:44.307868 getppid()               = 3586 <0.000025>
+20:01:44.308012 stat("/home/shan/Desktop/BlackBoxTesting", {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0 <0.000034>
+20:01:44.308149 stat(".", {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0 <0.000029>
+20:01:44.308307 open("./test.sh", O_RDONLY) = 3 <0.000039>
+20:01:44.308466 fcntl(3, F_DUPFD, 10)   = 10 <0.000028>
+20:01:44.308574 close(3)                = 0 <0.000027>
+20:01:44.308673 fcntl(10, F_SETFD, FD_CLOEXEC) = 0 <0.000026>
+20:01:44.308773 rt_sigaction(SIGINT, NULL, {SIG_DFL, [], 0}, 8) = 0 <0.000025>
+20:01:44.308882 rt_sigaction(SIGINT, {0x7f5607f2c460, ~[RTMIN RT_1], SA_RESTORER, 0x7f5607965d40}, NULL, 8) = 0 <0.000026>
+20:01:44.308995 rt_sigaction(SIGQUIT, NULL, {SIG_DFL, [], 0}, 8) = 0 <0.000024>
+20:01:44.309101 rt_sigaction(SIGQUIT, {SIG_DFL, ~[RTMIN RT_1], SA_RESTORER, 0x7f5607965d40}, NULL, 8) = 0 <0.000026>
+20:01:44.309212 rt_sigaction(SIGTERM, NULL, {SIG_DFL, [], 0}, 8) = 0 <0.000025>
+20:01:44.309318 rt_sigaction(SIGTERM, {SIG_DFL, ~[RTMIN RT_1], SA_RESTORER, 0x7f5607965d40}, NULL, 8) = 0 <0.000030>
+20:01:44.309455 read(10, "#!/bin/sh\n# This is a comment\n\nr"..., 8192) = 296 <0.000031>
+20:01:44.309620 openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = 3 <0.000036>
+20:01:44.309759 getdents(3, /* 10 entries */, 32768) = 312 <0.000060>
+20:01:44.309953 getdents(3, /* 0 entries */, 32768) = 0 <0.000030>
+20:01:44.310084 close(3)                = 0 <0.000033>
+20:01:44.310204 stat("/usr/local/sbin/rm", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000034>
+20:01:44.310347 stat("/usr/local/bin/rm", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000030>
+20:01:44.310461 stat("/usr/sbin/rm", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000031>
+20:01:44.310703 stat("/usr/bin/rm", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000033>
+20:01:44.310836 stat("/sbin/rm", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000031>
+20:01:44.310950 stat("/bin/rm", {st_mode=S_IFREG|0755, st_size=60160, ...}) = 0 <0.000033>
+20:01:44.311083 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5607ef4a10) = 3590 <0.000114>
+20:01:44.311326 wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3590 <0.001606>
+20:01:44.313020 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=3590, si_status=0, si_utime=0, si_stime=0} ---
+20:01:44.313076 rt_sigreturn()          = 3590 <0.000019>
+20:01:44.313165 stat("/usr/local/sbin/make", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000023>
+20:01:44.313253 stat("/usr/local/bin/make", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000020>
+20:01:44.313358 stat("/usr/sbin/make", 0x7fff7ad9cfe0) = -1 ENOENT (No such file or directory) <0.000022>
+20:01:44.313442 stat("/usr/bin/make", {st_mode=S_IFREG|0755, st_size=170088, ...}) = 0 <0.000230>
+20:01:44.313779 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5607ef4a10) = 3591 <0.000245>
+20:01:44.314136 wait4(-1, rm -f uoflinsort.o  uoflinsort  *~
+[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3591 <0.004369>
+20:01:44.318613 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=3591, si_status=0, si_utime=0, si_stime=0} ---
+20:01:44.318679 rt_sigreturn()          = 3591 <0.000015>
+20:01:44.318745 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5607ef4a10) = 3594 <0.000082>
+20:01:44.318907 wait4(-1, gcc  -Wall -g  -c uoflinsort.c
+gcc  -o uoflinsort  uoflinsort.o  
+[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3594 <0.075081>
+20:01:44.394126 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=3594, si_status=0, si_utime=0, si_stime=0} ---
+20:01:44.394204 rt_sigreturn()          = 3594 <0.000022>
+20:01:44.394328 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5607ef4a10) = 3601 <0.000097>
+20:01:44.394532 wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3601 <1.242130>
+20:01:45.636736 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=3601, si_status=0, si_utime=122, si_stime=1} ---
+20:01:45.636780 rt_sigreturn()          = 3601 <0.000009>
+20:01:45.636879 stat("/usr/local/sbin/diff", 0x7fff7ad9cfb0) = -1 ENOENT (No such file or directory) <0.000013>
+20:01:45.636943 stat("/usr/local/bin/diff", 0x7fff7ad9cfb0) = -1 ENOENT (No such file or directory) <0.000010>
+20:01:45.636986 stat("/usr/sbin/diff", 0x7fff7ad9cfb0) = -1 ENOENT (No such file or directory) <0.000008>
+20:01:45.637025 stat("/usr/bin/diff", {st_mode=S_IFREG|0755, st_size=125960, ...}) = 0 <0.000009>
+20:01:45.637073 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5607ef4a10) = 3603 <0.000051>
+20:01:45.637171 wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3603 <0.002964>
+20:01:45.640187 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=3603, si_status=0, si_utime=0, si_stime=0} ---
+20:01:45.640223 rt_sigreturn()          = 3603 <0.000008>
+20:01:45.640271 write(1, "Success-------------------------"..., 62Success-----------------------------------------------Success
+) = 62 <0.000013>
+20:01:45.640311 read(10, "", 8192)      = 0 <0.000009>
+20:01:45.640342 exit_group(0)           = ?
+20:01:45.640403 +++ exited with 0 +++

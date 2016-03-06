@@ -1,0 +1,244 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define TRACE fprintf(stderr, "Executing Line: %d\n", __LINE__);
+struct student
+{
+    struct student *prev;
+    struct student *next;
+    
+    int id;
+}*head, *last;
+void insert(int id)
+{
+    struct student *var, *temp;
+    var = (struct student*)malloc(sizeof(struct student));
+        var->id = id;
+    if(head == NULL)
+    {
+        head = var;
+        head->prev = NULL;
+        head->next = NULL;
+        last = head;
+    }
+    else
+    {
+        last = head;
+        while(last!=NULL)
+        {
+            temp = last;
+            last = last->next;
+        }
+    last = var;
+    temp->next = last;
+    last->prev = temp;
+    last->next = NULL;
+    }
+}
+void delete_node()
+{
+    struct student *temp;
+    temp = last;
+    if(temp->prev == NULL)
+    {
+        free(temp);
+        head = NULL;
+        last = NULL;
+    }
+    
+    else
+    {
+        last = last->prev;
+        last->next = NULL;
+        
+        //free(temp->prev);
+        free(temp->next);
+        free(temp);
+        temp = NULL;
+    }
+}
+void delete_all()
+{
+    while(head != NULL)
+    {
+        delete_node();
+    }
+}
+void swap(struct student *left, struct student *right)
+{
+    if(left->prev)
+    {
+        left->prev->next = right;
+    }
+    if(right->next)
+    {
+        right->next->prev = left;
+    }
+    left->next = right->next;
+    right->prev = left->prev;
+    
+    right->next = left;
+    left->prev = right;
+}
+void find_head()
+{
+    if(head == NULL)
+    {
+        printf(">>>List is empty\n");
+    }
+    else
+    {
+        while(head->prev)
+        {
+            head = head->prev;
+        }
+    }
+}
+void remove_dup()
+{
+    struct student *temp;
+    temp = head;
+    
+    if(head == NULL)
+    {
+        printf("List iss empty\n");
+    }
+    else
+    {
+        while (temp!= NULL && temp->next != NULL)
+        {
+            if(temp->id == temp->next->id)
+            {
+                if(temp->prev == NULL || temp->next == NULL)
+                {
+                    //do something
+                }
+                else
+                {
+                    temp->prev->next = temp->next;
+                    temp->next->prev = temp->prev;
+                
+                    temp->prev = NULL;
+                    temp->next = NULL;
+                    free(temp);
+                }
+            }
+            temp = temp->next;
+        }
+    }
+}
+void insert_sort()
+{
+    struct student *temp1, *temp2;
+    temp1 = head->next;
+    
+    while((temp1->prev != NULL) && (temp1 != NULL))
+    {
+        temp2 = temp1;
+
+        while((temp2->prev != NULL)&&((temp2->id) < (temp2->prev->id)))
+        {
+            printf("Swapping: %d and %d\n", temp2->prev->id, temp2->id);
+            swap(temp2->prev, temp2);
+            printf(">>>>Swapped%d\n", temp2->id);
+        }
+        if(temp1->next == NULL)
+        {
+            break;
+        }
+        else
+        {
+            temp1 = temp1->next;
+            printf("temp1: %d\n", temp1->id);
+        }
+    }
+    //free(temp1);
+    //free(temp2);
+}
+
+void display()
+{
+    struct student *temp;
+    temp = head;
+    if(temp == NULL)
+    {
+        printf("list is empty\n");
+    }
+    else
+    {
+        while(temp != NULL)
+        {
+            printf("-> %d\n", temp->id);
+            if(temp->next == NULL)
+            {
+                printf("+++++++++break\n");
+                break;
+            }
+            else
+            {
+                temp = temp->next;
+            }
+        }
+        printf("BROKE\n");
+    }
+}
+int main(int argc, char argv[])
+{
+    //first and last student
+    head = NULL;
+    last = NULL;
+    struct student *temp;
+    temp = head;
+
+    while(temp != NULL)
+    {
+        printf("-> %d\n", temp->id);
+        temp = temp->next;
+    }
+    
+    //local variables
+    int i = 0;
+    int lid;
+    
+    printf("\nid,fname,lname,dept,gpa\n");//TakeThisOutOnceDone
+    
+    insert(7);
+    insert(5);
+    insert(9);
+    insert(5);
+    insert(3);
+    insert(6);
+    
+    find_head();
+    display();
+    
+    find_head();
+    insert_sort();
+    
+    find_head();
+    delete_all();
+    
+    find_head();
+    display();
+    //////////////////////////////////////////////////////////
+    /*
+    display();
+    //swap(head, head->next);
+    insert_sort();
+    printf("---------\n");
+    find_head();
+    display();
+    printf("--------------REM\n");
+    find_head();
+    remove_dup();
+    display();
+    printf("deleting...\n");
+    delete_all();
+    printf("DELTEEDDE\n");
+    find_head();
+    display();
+    */
+
+    
+    return 0;
+}
