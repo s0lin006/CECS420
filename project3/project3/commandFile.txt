@@ -1,0 +1,3 @@
+/home/shan/Desktop/project3/searchdir the
+/home/shan/Desktop/project3/searchdir/A the
+/home/shan/Desktop/project3/searchdir the

@@ -1,0 +1,311 @@
+/*
+*   CECS420 - OS Design
+*   Project 4 - disksched.c
+*   Name: Shan Lin
+*   Due: 04.16.2015 @ 11:59pm
+*/
+
+/*-----------------LOG---------------------------
+04.11.2015
+    -Initial version
+        
+TODO: 
+----------------END LOG------------------------*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TRACE { printf("Running line: %d\n", __LINE__); }
+
+#define SECTORSPERTRACK 200
+#define TRACKSPERCYLINDER 8
+#define CYLINDERS 500000
+#define RPM 10000
+#define PHYSICALSECTORSIZE 512
+#define LOGICALBLOCKSIZE 4096
+#define TRACKTOTRACKSEEK 2
+#define FULLSEEK 16
+#define TRANSFERRATE 1
+
+
+struct node
+{
+    double arrival_time;
+    double finish_time;
+    int logical_block_number;
+    int request_size;
+    
+    struct node *prev;
+    struct node *next;
+}*head, *last;
+
+
+void insert(double larrival_time, double lfinish_time, int llogical_block_number, int lrequest_size)
+{
+    struct node *var, *temp;
+    var = (struct node*)malloc(sizeof(struct node));
+        var->arrival_time = larrival_time;
+        var->finish_time = lfinish_time;
+        var->logical_block_number = llogical_block_number;
+        var->request_size = lrequest_size;
+    if(head == NULL)
+    {
+        head = var;
+        head->prev = NULL;
+        head->next = NULL;
+        last = head;
+    }
+    else
+    {
+        last = head;
+        while(last != NULL)
+        {
+            temp = last;
+            last = last->next;
+        }
+        last = var;
+        temp->next = last;
+        last->prev = temp;
+        last->next = NULL;
+    }
+}
+
+void delete_node()
+{
+    struct node *temp;
+    temp = last;
+    if(temp->prev = NULL)
+    {
+        free(temp);
+        head = NULL;
+        last = NULL;
+    }
+    else
+    {
+        last = temp->prev;
+        last->next = NULL;
+        free(temp);
+    }
+}
+
+void delete_all()
+{
+    struct node *n;
+    while(head)
+    {
+        n = head->next;
+        free(head);
+        head = n;
+    }
+}
+
+void swap(struct node *left, struct node *right)
+{
+    if(left->prev)
+    {
+        left->prev->next = right;
+    }
+    if(right->next)
+    {
+        right->next->prev = left;
+    }
+    left->next = right->next;
+    right->prev = left->prev;
+    
+    right->next = left;
+    left->prev = right;
+}
+
+void find_head()
+{
+    if(head == NULL)
+    {
+        printf(">>>List is empty\n");
+    }
+    else
+    {
+        while(head->prev)
+        {
+            head = head->prev;
+        }
+    }
+}
+
+void insert_sort()
+{
+    struct node *temp1, *temp2;
+    temp1 = head->next;
+    
+    while((temp1->prev != NULL) && (temp1 != NULL))
+    {
+        temp2 = temp1;
+
+        while((temp2->prev != NULL)&&((temp2->finish_time) < (temp2->prev->finish_time)))
+        {
+            swap(temp2->prev, temp2);
+        }
+        if(temp1->next == NULL)
+        {
+            break;
+        }
+        else
+        {
+            temp1 = temp1->next;
+        }
+    }
+}
+
+void display()
+{
+    struct node *temp;
+    temp = head;
+    if(temp == NULL)
+    {
+        printf("list is empty\n");
+    }
+    while(temp != NULL)
+    {
+        printf("%lf %lf %d %d\n", temp->arrival_time, temp->finish_time, temp->logical_block_number, temp->request_size);
+        temp = temp->next;
+    }
+}
+
+double get_finish(double start)
+{
+    double x = 0;
+    
+    x = start + waiting + service;
+    return x;
+}
+
+double get_waiting(double arrival, double prev_finish)
+{
+    double x = 0;
+    x = prev_finish - arrival;
+    
+    if(x < 0)
+    {
+        x = x * -1;
+    }
+    return x;
+}
+
+int get_psn(int lbn)
+{
+    int x = 8 * lbn;
+    return x;
+}
+
+int get_cylinder(int psn)
+{
+    int x = psn/1600;
+    return x;
+}
+
+int get_surface(int psn)
+{
+    int x = (psn/200) % 8;
+    return x;
+}
+
+double get_seek_distance(int seek_dist, int cylinder)
+{
+    double x = 0;
+    x = cylinder - seek_dist;
+    if(x < 0)
+    {
+        x = x * -1;
+    }
+    return x;
+}
+
+void print_to_file(FILE *fp_out)
+{
+    struct node *temp;
+    temp = head;
+    
+    double larrival_time, lfinish_time, lwaiting_time, lsector_offset;
+    int lpsn, lcylinder, lsurface, lseek_distance;
+    
+    
+    while(temp != NULL)
+    {
+        if(temp == head)
+        {
+            larrival_time = temp->arrival_time;
+            lfinish_time = temp->finish_time;
+            lwaiting_time = 0;
+            lpsn = get_psn(temp->logical_block_number);
+            lcylinder = get_cylinder(lpsn);
+            lsurface = get_surface(lpsn);
+            lsector_offset = 0;
+            lseek_distance = get_seek_distance(0, lcylinder);
+        }
+        else
+        {
+            larrival_time = temp->arrival_time;
+            lfinish_time = temp->finish_time;
+            lwaiting_time = get_waiting(temp->arrival_time, temp->prev->finish_time);
+            lpsn = get_psn(temp->logical_block_number);
+            lcylinder = get_cylinder(lpsn);
+            lsurface = get_surface(lpsn);
+            lsector_offset = 0;
+            lseek_distance = get_seek_distance(get_cylinder(get_psn(temp->prev->logical_block_number)), lcylinder);
+        }
+        
+        fprintf(fp_out, "%lf %lf %lf %d %d %d %lf %d\n", larrival_time, lfinish_time, lwaiting_time, lpsn, lcylinder, lsurface, lsector_offset, lseek_distance);
+        temp = temp->next;
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    FILE *fp_in;
+    FILE *fp_out;
+    fp_in = fopen(argv[1], "r");
+    fp_out = fopen(argv[2], "w");
+    
+    int optional = 0;
+    
+    double arrival_time = 0;
+    double finish_time = 0;
+    int logical_block_number = 0;
+    int request_size = 0;
+    
+    if(fp_in == NULL || fp_out == NULL)
+    {
+        printf("\nFile cannot be read\n");
+    }
+    else
+    {
+        fscanf(fp_in, "%lf%lf%d%d", &arrival_time, &finish_time, &logical_block_number, &request_size);
+        while(!feof(fp_in))
+        {
+            if(argc == 5)
+            {
+                if(optional == atoi(argv[4]))
+                {
+                    break;
+                }
+                optional = optional + 1;
+            }
+            finish_time = get_finish(arrival_time);
+            insert(arrival_time, finish_time, logical_block_number, request_size);
+            fscanf(fp_in, "%lf%lf%d%d", &arrival_time, &finish_time, &logical_block_number, &request_size);
+        }
+    }
+    find_head();
+    insert_sort();
+    //find_head();
+    //display();
+    
+    find_head();
+    print_to_file(fp_out);
+    
+    find_head();
+    delete_all();
+    fclose(fp_in);
+    fclose(fp_out);
+    return 0;
+}

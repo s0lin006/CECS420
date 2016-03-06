@@ -1,0 +1,24 @@
+./receiver&
+sleep 3
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender a searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+./sender is searchdir/ &
+sleep 3
+./sender exit searchdir/
